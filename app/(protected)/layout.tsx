@@ -1,27 +1,13 @@
-import { ClerkProvider } from '@clerk/nextjs'
-import type { Metadata } from 'next'
-import './globals.css'
-import { ConvexClientProvider } from '@/components/providers/convex-provider'
+import { ReactNode } from 'react'
 
-export const metadata: Metadata = {
-  title: 'Tars Chat',
-  description: 'Real-time chat application',
-}
-
-export default function RootLayout({
+export default function ProtectedLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body suppressHydrationWarning>
-          <ConvexClientProvider>
-            {children}
-          </ConvexClientProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <div className="protected-layout">
+      {children}
+    </div>
   )
 }
