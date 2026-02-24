@@ -1,13 +1,7 @@
-import { ReactNode } from 'react'
-
 export default function ProtectedLayout({
   children,
 }: {
-  children: ReactNode
+  children: React.ReactNode
 }) {
-  return (
-    <div className="protected-layout">
-      {children}
-    </div>
-  )
+  return <>{children}</>
 }
