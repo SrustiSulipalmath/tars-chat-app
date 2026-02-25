@@ -419,7 +419,7 @@ export default function HomePage() {
                           </span>
                         )}
                       </div>
-                      {typingUsers?.some(tu => tu._id === u._id) && (
+                      {typingUsers?.some(tu => tu && tu._id === u._id) && (
                         <div className="text-xs text-green-500 mt-1 flex items-center gap-1">
                           <span className="w-1 h-1 bg-green-500 rounded-full animate-pulse"></span>
                           typing...
