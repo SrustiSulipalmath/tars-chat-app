@@ -24,7 +24,7 @@ export default function HomePage() {
   
   // State
   const [message, setMessage] = useState('')
-  const [selectedConversation, setSelectedConversation] = useState(null)
+  const [selectedConversation, setSelectedConversation] = useState<Id<"conversations"> | null>(null)
   const [selectedUserId, setSelectedUserId] = useState<Id<"users"> | null>(null)
   const [showMobileSidebar, setShowMobileSidebar] = useState(true)
   const [isTyping, setIsTyping] = useState(false)
