@@ -182,7 +182,7 @@ export default function HomePage() {
     }, 2000)
   }
 
-  const handleEmojiClick = (emojiData) => {
+  const handleEmojiClick = (emojiData: any) => {
     setMessage(prev => prev + emojiData.emoji)
     setShowEmojiPicker(false)
     handleTyping()
