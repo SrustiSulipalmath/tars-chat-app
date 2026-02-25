@@ -14,9 +14,10 @@ export default function ConversationPage() {
   const params = useParams()
   const router = useRouter()
   const [message, setMessage] = useState('')
-  const messagesEndRef = useRef(null)
+  // ✅ Fix: Properly type the ref
+  const messagesEndRef = useRef<HTMLDivElement>(null)
   
-  // FIXED: Now on one line with correct type
+  // Fix: Cast params.id to the correct Convex ID type
   const conversationId = params.id as Id<"conversations">
   
   // Get current user from Convex
@@ -31,6 +32,7 @@ export default function ConversationPage() {
   const sendMessage = useMutation(api.messages.send)
   
   const scrollToBottom = () => {
+    // ✅ Now TypeScript knows this is an HTMLDivElement with scrollIntoView
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
@@ -106,6 +108,7 @@ export default function ConversationPage() {
             )
           })
         )}
+        {/* ✅ This div will be referenced by messagesEndRef */}
         <div ref={messagesEndRef} />
       </div>
 
