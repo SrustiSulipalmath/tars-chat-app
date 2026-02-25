@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Doc } from "@/convex/_generated/dataModel";
 import { MoreVertical, Trash2, Edit, Copy, Reply, Smile } from "lucide-react";
@@ -148,8 +148,8 @@ export function MessageBubble({
         
         <div className="text-xs text-gray-400 dark:text-gray-500 mt-1 ml-1">
           {formatMessageTime(message.createdAt)}
-          {message.type === "deleted" && " • Deleted"}
-          {message.updatedAt && " • Edited"}
+          {message.type === "deleted" && " â€¢ Deleted"}
+          {message.updatedAt && " â€¢ Edited"}
         </div>
       </div>
 
