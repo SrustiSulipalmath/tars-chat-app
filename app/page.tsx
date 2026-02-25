@@ -37,9 +37,9 @@ export default function HomePage() {
   const [isUserScrolled, setIsUserScrolled] = useState(false)
   
   // Refs
-  const typingTimeoutRef = useRef(null)
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const fileInputRef = useRef(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Get current user from Convex using Clerk ID
   const currentUser = useQuery(api.users.getUserByClerkId, 
@@ -144,7 +144,7 @@ export default function HomePage() {
   }
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.target
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget
     const isAtBottom = scrollHeight - scrollTop - clientHeight < 100
     setIsUserScrolled(!isAtBottom)
   }
@@ -232,7 +232,7 @@ export default function HomePage() {
   }
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const file = e.currentTarget.files?.[0];
     if (!file || !selectedConversation || !currentUser) return;
     
     sendMessage({
@@ -321,7 +321,7 @@ export default function HomePage() {
               type="text"
               placeholder="Search users..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.currentTarget.value)}
               className="w-full pl-10 pr-4 py-2.5 bg-white/10 backdrop-blur rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 border border-white/20 text-sm md:text-base"
             />
           </div>
@@ -613,7 +613,7 @@ export default function HomePage() {
                   type="text"
                   value={message}
                   onChange={(e) => {
-                    setMessage(e.target.value)
+                    setMessage(e.currentTarget.value)
                     handleTyping()
                   }}
                   onKeyPress={(e) => {
