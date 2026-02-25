@@ -33,7 +33,7 @@ export default function HomePage() {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const [showUserProfile, setShowUserProfile] = useState(false)
   const [replyingTo, setReplyingTo] = useState(null)
-  const [editingMessage, setEditingMessage] = useState(null)
+  const [editingMessage, setEditingMessage] = useState<typeof msg | null>(null)
   const [showScrollButton, setShowScrollButton] = useState(false)
   const [isUserScrolled, setIsUserScrolled] = useState(false)
   
@@ -84,7 +84,7 @@ export default function HomePage() {
 
   // Debug mutations
   useEffect(() => {
-    console.log("ðŸŸ¡ Available mutations:", {
+    console.log("🟡 Available mutations:", {
       sendMessage: !!sendMessage,
       getOrCreateConversation: !!getOrCreateConversation,
       setTyping: !!setTyping,
@@ -238,7 +238,7 @@ export default function HomePage() {
     
     sendMessage({
       conversationId: selectedConversation,
-      content: `ðŸ“Ž Sent a file: ${file.name}`,
+      content: `📎 Sent a file: ${file.name}`,
     });
     
     if (fileInputRef.current) {
@@ -374,7 +374,7 @@ export default function HomePage() {
               </p>
             </div>
           ) : (
-            filteredUsers.map((u) => {
+            filteredUsers?.map((u: any) => {
               const conv = conversations?.find(c => 
                 c.participants.includes(u._id)
               )
@@ -503,28 +503,38 @@ export default function HomePage() {
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center">
                       <span className="px-2 py-1 md:px-3 md:py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full text-xs md:text-sm">
-                        ðŸ‘‹ Say hello
+                        👋 Say hello
                       </span>
                       <span className="px-2 py-1 md:px-3 md:py-1 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 rounded-full text-xs md:text-sm">
-                        ðŸ˜Š Send emoji
+                        😊 Send emoji
                       </span>
                     </div>
                   </div>
                 </div>
               ) : (
-                messages?.filter(msg => msg.sender).map((msg, index) => (
-                  <MessageBubble
-                    key={msg._id}
-                    message={msg}
-                    isOwnMessage={msg.senderId === currentUser._id}
-                    onDelete={() => {}}
-                    onEdit={() => setEditingMessage(msg)}
-                    onReply={() => setReplyingTo(msg)}
-                  />
-                ))
+                messages?.map((msg, index) => {
+                  if (!msg.sender) return null;
+
+                  return (
+                    <MessageBubble
+                      key={msg._id}
+                      message={msg as any}
+                      isOwnMessage={msg.senderId === currentUser._id}
+                      onDelete={() => {}}
+                      onEdit={() => {
+                        setEditingMessage(msg)
+                        return null;
+                      }}
+                      onReply={() => {
+                        setReplyingTo(msg as any);
+                        return null;
+                      }}
+                    />
+                  );
+                })
               )}
               
-              <TypingIndicator users={typingUsers || []} />
+              <TypingIndicator users={(typingUsers?.filter((tu): tu is NonNullable<typeof tu> => tu !== null) || [])} />
               <div ref={messagesEndRef} />
             </div>
 
@@ -534,7 +544,7 @@ export default function HomePage() {
                 onClick={scrollToBottom}
                 className="absolute bottom-24 right-4 md:bottom-28 md:right-8 bg-blue-500 text-white rounded-full px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-base shadow-lg hover:bg-blue-600 transition flex items-center gap-2 z-10"
               >
-                <span>â†“</span>
+                <span>↓</span>
                 New messages
               </button>
             )}
@@ -548,7 +558,7 @@ export default function HomePage() {
                       <>
                         <Reply size={14} className="text-blue-500" />
                         <span className="text-xs text-gray-600 dark:text-gray-400">
-                          Replying to: {replyingTo.content.substring(0, 20)}...
+                          Replying to: {(replyingTo as any)?.content?.substring(0, 20) || ""}...
                         </span>
                       </>
                     ) : (
@@ -646,7 +656,10 @@ export default function HomePage() {
               {/* Typing status */}
               {typingUsers && typingUsers.length > 0 && (
                 <div className="mt-2 text-xs text-gray-500 dark:text-gray-400 px-1">
-                  {typingUsers.map(u => u.name.split(' ')[0]).join(', ')} {typingUsers.length === 1 ? 'is' : 'are'} typing...
+                  {typingUsers
+                    .filter((u): u is NonNullable<typeof u> => u !== null)
+                    .map(u => u.name.split(' ')[0])
+                    .join(', ')} {typingUsers.length === 1 ? 'is' : 'are'} typing...
                 </div>
               )}
             </div>
@@ -711,4 +724,7 @@ export default function HomePage() {
     </div>
   )
 }
+
+
+
 
