@@ -143,7 +143,7 @@ export default function HomePage() {
     setShowScrollButton(false)
   }
 
-  const handleScroll = (e) => {
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const { scrollTop, scrollHeight, clientHeight } = e.target
     const isAtBottom = scrollHeight - scrollTop - clientHeight < 100
     setIsUserScrolled(!isAtBottom)
