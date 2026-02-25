@@ -1,3 +1,4 @@
+﻿
 'use client'
 
 import { useUser } from '@clerk/nextjs'
@@ -15,7 +16,7 @@ export default function ConversationPage() {
   const [message, setMessage] = useState('')
   const messagesEndRef = useRef(null)
   
-  // Get the conversation ID from params and cast it to the correct type
+  // Fix: Cast params.id to the correct Convex ID type
   const conversationId = params.id as Id<"conversations">
   
   // Get current user from Convex
