@@ -512,17 +512,21 @@ export default function HomePage() {
                   </div>
                 </div>
               ) : (
-                messages?.filter(msg => msg.sender).map((msg, index) => (
-                  <MessageBubble
-                    key={msg._id}
-                    message={msg}
-                    isOwnMessage={msg.senderId === currentUser._id}
-                    onDelete={() => {}}
-                    onEdit={() => setEditingMessage(msg)}
-                    onReply={() => setReplyingTo(msg)}
-                  />
-                ))
-              )}
+                {messages?.map((msg, index) => {
+  // Skip messages without a sender
+  if (!msg.sender) return null;
+  
+  return (
+    <MessageBubble
+      key={msg._id}
+      message={msg}
+      isOwnMessage={msg.senderId === currentUser._id}
+      onDelete={() => {}}
+      onEdit={() => setEditingMessage(msg)}
+      onReply={() => setReplyingTo(msg)}
+    />
+  );
+})}
               
               <TypingIndicator users={typingUsers || []} />
               <div ref={messagesEndRef} />
