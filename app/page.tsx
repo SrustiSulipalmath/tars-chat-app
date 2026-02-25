@@ -33,7 +33,7 @@ export default function HomePage() {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const [showUserProfile, setShowUserProfile] = useState(false)
   const [replyingTo, setReplyingTo] = useState(null)
-  const [editingMessage, setEditingMessage] = useState<typeof msg | null>(null)
+  const [editingMessage, setEditingMessage] = useState<any>(null)
   const [showScrollButton, setShowScrollButton] = useState(false)
   const [isUserScrolled, setIsUserScrolled] = useState(false)
   
