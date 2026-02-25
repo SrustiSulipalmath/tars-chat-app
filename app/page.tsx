@@ -413,7 +413,7 @@ export default function HomePage() {
                         <div className="text-xs md:text-sm text-gray-500 dark:text-gray-400 truncate max-w-[120px] md:max-w-[150px]">
                           {lastMessage?.content || 'No messages yet'}
                         </div>
-                        {conv?.unreadCount > 0 && (
+                        {conv?.unreadCount && conv.unreadCount > 0 && (
                           <span className="bg-blue-500 text-white text-xs rounded-full min-w-5 h-5 flex items-center justify-center px-1.5 ml-2">
                             {conv.unreadCount}
                           </span>
