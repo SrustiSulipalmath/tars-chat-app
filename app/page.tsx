@@ -38,7 +38,7 @@ export default function HomePage() {
   
   // Refs
   const typingTimeoutRef = useRef(null)
-  const messagesEndRef = useRef(null)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef(null)
 
   // Get current user from Convex using Clerk ID
