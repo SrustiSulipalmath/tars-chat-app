@@ -512,7 +512,7 @@ export default function HomePage() {
                   </div>
                 </div>
               ) : (
-                messages?.map((msg, index) => (
+                messages?.filter(msg => msg.sender).map((msg, index) => (
                   <MessageBubble
                     key={msg._id}
                     message={msg}
