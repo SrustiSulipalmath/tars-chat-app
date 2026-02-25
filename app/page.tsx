@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useUser } from '@clerk/nextjs'
 import { useQuery, useMutation } from 'convex/react'
@@ -84,7 +84,7 @@ export default function HomePage() {
 
   // Debug mutations
   useEffect(() => {
-    console.log("🟡 Available mutations:", {
+    console.log("ðŸŸ¡ Available mutations:", {
       sendMessage: !!sendMessage,
       getOrCreateConversation: !!getOrCreateConversation,
       setTyping: !!setTyping,
@@ -238,7 +238,7 @@ export default function HomePage() {
     
     sendMessage({
       conversationId: selectedConversation,
-      content: `📎 Sent a file: ${file.name}`,
+      content: `ðŸ“Ž Sent a file: ${file.name}`,
     });
     
     if (fileInputRef.current) {
@@ -503,30 +503,26 @@ export default function HomePage() {
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center">
                       <span className="px-2 py-1 md:px-3 md:py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full text-xs md:text-sm">
-                        👋 Say hello
+                        ðŸ‘‹ Say hello
                       </span>
                       <span className="px-2 py-1 md:px-3 md:py-1 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 rounded-full text-xs md:text-sm">
-                        😊 Send emoji
+                        ðŸ˜Š Send emoji
                       </span>
                     </div>
                   </div>
                 </div>
               ) : (
-                {messages?.map((msg, index) => {
-  // Skip messages without a sender
-  if (!msg.sender) return null;
-  
-  return (
-    <MessageBubble
-      key={msg._id}
-      message={msg}
-      isOwnMessage={msg.senderId === currentUser._id}
-      onDelete={() => {}}
-      onEdit={() => setEditingMessage(msg)}
-      onReply={() => setReplyingTo(msg)}
-    />
-  );
-})}
+                messages?.filter(msg => msg.sender).map((msg, index) => (
+                  <MessageBubble
+                    key={msg._id}
+                    message={msg}
+                    isOwnMessage={msg.senderId === currentUser._id}
+                    onDelete={() => {}}
+                    onEdit={() => setEditingMessage(msg)}
+                    onReply={() => setReplyingTo(msg)}
+                  />
+                ))
+              )}
               
               <TypingIndicator users={typingUsers || []} />
               <div ref={messagesEndRef} />
@@ -538,7 +534,7 @@ export default function HomePage() {
                 onClick={scrollToBottom}
                 className="absolute bottom-24 right-4 md:bottom-28 md:right-8 bg-blue-500 text-white rounded-full px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-base shadow-lg hover:bg-blue-600 transition flex items-center gap-2 z-10"
               >
-                <span>↓</span>
+                <span>â†“</span>
                 New messages
               </button>
             )}
@@ -715,3 +711,4 @@ export default function HomePage() {
     </div>
   )
 }
+
