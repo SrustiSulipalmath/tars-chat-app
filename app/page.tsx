@@ -3,6 +3,7 @@
 import { useUser } from '@clerk/nextjs'
 import { useQuery, useMutation } from 'convex/react'
 import { api } from '@/convex/_generated/api'
+import { Id } from '@/convex/_generated/dataModel'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { SignOutButton } from '@clerk/nextjs'
@@ -149,7 +150,7 @@ export default function HomePage() {
     setIsUserScrolled(!isAtBottom)
   }
 
-  const handleUserSelect = async (otherUserId) => {
+  const handleUserSelect = async (otherUserId: Id<"users">) => {
     if (!currentUser) return
     setSelectedUserId(otherUserId)
     const conversationId = await getOrCreateConversation({
