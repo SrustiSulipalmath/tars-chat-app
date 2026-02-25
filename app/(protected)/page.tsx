@@ -16,7 +16,7 @@ export default function ConversationPage() {
   const [message, setMessage] = useState('')
   const messagesEndRef = useRef(null)
   
-  // FIXED: Now on one line
+  // FIXED: Now on one line with correct type
   const conversationId = params.id as Id<"conversations">
   
   // Get current user from Convex
