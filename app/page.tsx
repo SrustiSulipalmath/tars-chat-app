@@ -519,15 +519,13 @@ export default function HomePage() {
                     <MessageBubble
                       key={msg._id}
                       message={msg as any}
-                      isOwnMessage={msg.senderId === currentUser._id}
+                      isOwnMessage={msg.senderId === currentUser?._id}
                       onDelete={() => {}}
                       onEdit={() => {
-                        setEditingMessage(msg)
-                        return null;
+                        setEditingMessage(msg as any);
                       }}
                       onReply={() => {
                         setReplyingTo(msg as any);
-                        return null;
                       }}
                     />
                   );
